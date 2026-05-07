@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::where('is_accepted', true)->with('category')->orderBy('created_at', 'desc')->paginate(10);
+        $articles = Article::where('is_accepted', true)->with(['category', 'images'])->orderBy('created_at', 'desc')->paginate(10);
 
         return view('article.index', compact('articles'));
     }
@@ -22,13 +22,15 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
+        $article->load(['category', 'images']);
+
         return view('article.show', compact('article'));
     }
 
     public function byCategory(Category $category)
     {
         return view('article.byCategory', [
-            'articles' => $category->articles()->where('is_accepted', true)->with('category')->orderBy('created_at', 'desc')->get(),
+            'articles' => $category->articles()->where('is_accepted', true)->with(['category', 'images'])->orderBy('created_at', 'desc')->get(),
             'category' => $category,
         ]);
     }
@@ -39,13 +41,13 @@ class ArticleController extends Controller
 
         if ($query === '') {
             $articles = Article::where('is_accepted', true)
-                ->with('category')
+                ->with(['category', 'images'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(8)
                 ->withQueryString();
         } else {
             $articles = Article::search($query)
-                ->query(fn ($builder) => $builder->where('is_accepted', true)->with('category'))
+                ->query(fn ($builder) => $builder->where('is_accepted', true)->with(['category', 'images']))
                 ->paginate(8)
                 ->withQueryString();
         }

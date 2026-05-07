@@ -6,7 +6,7 @@
             </div>
         @endif
 
-        <form wire:submit="save" class="row g-3">
+        <form wire:submit="store" class="row g-3">
             <div class="col-12">
                 <label for="title" class="form-label">{{ __('ui.title') }}</label>
                 <input wire:model="title" type="text" id="title" class="form-control @error('title') is-invalid @enderror" />
@@ -43,6 +43,29 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="col-12">
+                <label for="images" class="form-label">{{ __('ui.images') }}</label>
+                <input type="file" id="images" multiple wire:model.live="temporary_images" class="form-control @error('temporary_images.*') is-invalid @enderror">
+                @error('temporary_images.*')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
+            </div>
+
+            @if (!empty($temporary_images))
+                <div class="col-12">
+                    <div class="row g-3">
+                        @foreach ($temporary_images as $key => $image)
+                            <div class="col-6 col-md-4 col-lg-3">
+                                <div class="border rounded p-2 h-100 d-flex flex-column">
+                                    <img src="{{ $image->temporaryUrl() }}" class="img-fluid rounded mb-2" alt="preview">
+                                    <button type="button" wire:click="removeImage({{ $key }})" class="btn btn-sm btn-outline-danger mt-auto">{{ __('ui.remove') }}</button>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
 
             <div class="col-12 d-grid">
                 <button class="btn btn-primary" type="submit">{{ __('ui.publishArticle') }}</button>

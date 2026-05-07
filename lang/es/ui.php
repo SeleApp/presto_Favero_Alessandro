@@ -24,6 +24,8 @@ return [
     'title' => 'Titulo',
     'description' => 'Descripcion',
     'price' => 'Precio',
+    'images' => 'Imagenes',
+    'remove' => 'Quitar',
     'selectCategory' => 'Selecciona una categoria',
     'publishArticle' => 'Publicar anuncio',
     'search' => 'Buscar',

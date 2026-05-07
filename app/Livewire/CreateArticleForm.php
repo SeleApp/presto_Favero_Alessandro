@@ -6,13 +6,17 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class CreateArticleForm extends Component
 {
+    use WithFileUploads;
+
     public string $title = '';
     public string $description = '';
     public string $price = '';
     public string $category_id = '';
+    public array $temporary_images = [];
 
     protected function rules(): array
     {
@@ -21,14 +25,27 @@ class CreateArticleForm extends Component
             'description' => 'required|string|min:10',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
+            'temporary_images.*' => 'image|max:2048',
         ];
     }
 
-    public function save(): void
+    public function removeImage(int $key): void
+    {
+        unset($this->temporary_images[$key]);
+        $this->temporary_images = array_values($this->temporary_images);
+    }
+
+    public function cleanForm(): void
+    {
+        $this->reset(['title', 'description', 'price', 'category_id']);
+        $this->temporary_images = [];
+    }
+
+    public function store(): void
     {
         $validated = $this->validate();
 
-        Article::create([
+        $article = Article::create([
             'user_id' => Auth::id(),
             'category_id' => (int) $validated['category_id'],
             'title' => $validated['title'],
@@ -37,7 +54,15 @@ class CreateArticleForm extends Component
             'is_accepted' => null,
         ]);
 
-        $this->reset(['title', 'description', 'price', 'category_id']);
+        if (! empty($this->temporary_images)) {
+            foreach ($this->temporary_images as $image) {
+                $article->images()->create([
+                    'path' => $image->store('images', 'public'),
+                ]);
+            }
+        }
+
+        $this->cleanForm();
         session()->flash('success', __('ui.articleCreated'));
     }
 

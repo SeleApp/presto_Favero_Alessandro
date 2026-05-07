@@ -18,7 +18,32 @@
 
         @if ($article_to_check)
             <div class="card shadow-sm">
-                <img src="{{ $article_to_check->image ?? 'https://picsum.photos/seed/' . $article_to_check->id . '/1200/500' }}" class="card-img-top" alt="{{ $article_to_check->title }}">
+                <div id="revisorCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        @if ($article_to_check->images->isNotEmpty())
+                            @foreach ($article_to_check->images as $image)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <img src="{{ Storage::url($image->path) }}" class="d-block w-100" alt="{{ $article_to_check->title }}">
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="carousel-item active">
+                                <img src="https://picsum.photos/seed/{{ $article_to_check->id }}-1/1200/500" class="d-block w-100" alt="{{ $article_to_check->title }}">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://picsum.photos/seed/{{ $article_to_check->id }}-2/1200/500" class="d-block w-100" alt="{{ $article_to_check->title }}">
+                            </div>
+                        @endif
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#revisorCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#revisorCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
                 <div class="card-body">
                     <h2 class="h4">{{ $article_to_check->title }}</h2>
                     <p class="text-muted mb-2">

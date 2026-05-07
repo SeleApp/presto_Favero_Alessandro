@@ -24,6 +24,8 @@ return [
     'title' => 'Title',
     'description' => 'Description',
     'price' => 'Price',
+    'images' => 'Images',
+    'remove' => 'Remove',
     'selectCategory' => 'Select a category',
     'publishArticle' => 'Publish listing',
     'search' => 'Search',

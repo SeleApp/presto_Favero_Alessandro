@@ -14,15 +14,23 @@
             <div class="col-lg-7">
                 <div id="articleCarousel" class="carousel slide rounded overflow-hidden shadow-sm">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://picsum.photos/seed/{{ $article->id }}-1/900/500" class="d-block w-100" alt="Immagine annuncio 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://picsum.photos/seed/{{ $article->id }}-2/900/500" class="d-block w-100" alt="Immagine annuncio 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://picsum.photos/seed/{{ $article->id }}-3/900/500" class="d-block w-100" alt="Immagine annuncio 3">
-                        </div>
+                        @if ($article->images->isNotEmpty())
+                            @foreach ($article->images as $image)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <img src="{{ Storage::url($image->path) }}" class="d-block w-100" alt="{{ $article->title }}">
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="carousel-item active">
+                                <img src="https://picsum.photos/seed/{{ $article->id }}-1/900/500" class="d-block w-100" alt="Immagine annuncio 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://picsum.photos/seed/{{ $article->id }}-2/900/500" class="d-block w-100" alt="Immagine annuncio 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://picsum.photos/seed/{{ $article->id }}-3/900/500" class="d-block w-100" alt="Immagine annuncio 3">
+                            </div>
+                        @endif
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#articleCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
