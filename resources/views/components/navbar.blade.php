@@ -41,6 +41,13 @@
                 @endauth
             </ul>
 
+            <form class="d-flex ms-auto me-3" role="search" action="{{ route('article.search') }}" method="GET">
+                <div class="input-group">
+                    <input type="search" name="query" class="form-control" placeholder="{{ __('ui.search') }}" aria-label="search" value="{{ request('query') }}">
+                    <button type="submit" class="input-group-text btn btn-outline-success" id="basic-addon2">{{ __('ui.search') }}</button>
+                </div>
+            </form>
+
             <div class="d-flex gap-2 align-items-center">
                 <x-language-flag lang="it" icon="it" />
                 <x-language-flag lang="uk" icon="gb" />

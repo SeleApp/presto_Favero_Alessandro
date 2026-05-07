@@ -12,9 +12,11 @@
         "php": "^8.3",
         "laravel/fortify": "^1.37",
         "laravel/framework": "^13.7",
+        "laravel/scout": "^11",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^3.0@beta",
-        "outhebox/blade-flags": "^1.7"
+        "outhebox/blade-flags": "^1.7",
+        "teamtnt/laravel-scout-tntsearch-driver": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

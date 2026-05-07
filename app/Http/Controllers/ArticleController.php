@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -30,5 +31,25 @@ class ArticleController extends Controller
             'articles' => $category->articles()->where('is_accepted', true)->with('category')->orderBy('created_at', 'desc')->get(),
             'category' => $category,
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->string('query')->trim()->toString();
+
+        if ($query === '') {
+            $articles = Article::where('is_accepted', true)
+                ->with('category')
+                ->orderBy('created_at', 'desc')
+                ->paginate(8)
+                ->withQueryString();
+        } else {
+            $articles = Article::search($query)
+                ->query(fn ($builder) => $builder->where('is_accepted', true)->with('category'))
+                ->paginate(8)
+                ->withQueryString();
+        }
+
+        return view('article.searched', compact('articles', 'query'));
     }
 }
