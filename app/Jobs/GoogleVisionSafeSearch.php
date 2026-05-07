@@ -10,10 +10,12 @@ use Google\Cloud\Vision\V1\Feature;
 use Google\Cloud\Vision\V1\Feature\Type;
 use Google\Cloud\Vision\V1\Image as VisionImage;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
 
 class GoogleVisionSafeSearch implements ShouldQueue
 {
+    use Dispatchable;
     use Queueable;
 
     public function __construct(private int $article_image_id)
