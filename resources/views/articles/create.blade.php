@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crea Annuncio - {{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __('ui.createArticle') }} - {{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -12,8 +12,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="h3 mb-0">Crea un nuovo annuncio</h1>
-                    <a href="{{ route('homepage') }}" class="btn btn-outline-secondary">Torna alla home</a>
+                    <h1 class="h3 mb-0">{{ __('ui.createNewArticle') }}</h1>
+                    <a href="{{ route('homepage') }}" class="btn btn-outline-secondary">{{ __('ui.backToHome') }}</a>
                 </div>
                 <livewire:create-article-form />
             </div>

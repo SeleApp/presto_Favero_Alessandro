@@ -38,7 +38,7 @@ class CreateArticleForm extends Component
         ]);
 
         $this->reset(['title', 'description', 'price', 'category_id']);
-        session()->flash('success', 'Annuncio creato correttamente.');
+        session()->flash('success', __('ui.articleCreated'));
     }
 
     public function render()

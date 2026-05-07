@@ -40,12 +40,12 @@
                     <div class="card-body">
                         <h1 class="h3">{{ $article->title }}</h1>
                         <p class="text-muted mb-2">
-                            Categoria:
-                            <a href="{{ route('byCategory', ['category' => $article->category]) }}">{{ $article->category?->name ?? 'N/A' }}</a>
+                            {{ __('ui.category') }}:
+                            <a href="{{ route('byCategory', ['category' => $article->category]) }}">{{ $article->category ? __('ui.' . $article->category->name) : __('ui.na') }}</a>
                         </p>
                         <p class="h4 mb-3">{{ number_format($article->price, 2, ',', '.') }} EUR</p>
                         <p class="mb-4">{{ $article->description }}</p>
-                        <a href="{{ route('article.index') }}" class="btn btn-outline-secondary">Torna agli annunci</a>
+                        <a href="{{ route('article.index') }}" class="btn btn-outline-secondary">{{ __('ui.backToArticles') }}</a>
                     </div>
                 </div>
             </div>

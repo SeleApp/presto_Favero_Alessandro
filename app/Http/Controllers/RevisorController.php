@@ -17,13 +17,13 @@ class RevisorController extends Controller
     {
         $article->setAccepted(true);
 
-        return back()->with('message', 'Articolo accettato con successo.');
+        return back()->with('message', __('ui.articleAccepted'));
     }
 
     public function reject(Article $article)
     {
         $article->setAccepted(false);
 
-        return back()->with('message', 'Articolo rifiutato con successo.');
+        return back()->with('message', __('ui.articleRejected'));
     }
 }

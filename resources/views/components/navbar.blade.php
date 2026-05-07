@@ -8,22 +8,22 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('homepage') }}">Home</a>
+                    <a class="nav-link" href="{{ route('homepage') }}">{{ __('ui.home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('article.index') }}">Tutti gli annunci</a>
+                    <a class="nav-link" href="{{ route('article.index') }}">{{ __('ui.allArticles') }}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categorie
+                        {{ __('ui.categories') }}
                     </a>
                     <ul class="dropdown-menu">
                         @forelse ($categories as $category)
                             <li>
-                                <a class="dropdown-item" href="{{ route('byCategory', ['category' => $category]) }}">{{ $category->name }}</a>
+                                <a class="dropdown-item" href="{{ route('byCategory', ['category' => $category]) }}">{{ __('ui.' . $category->name) }}</a>
                             </li>
                         @empty
-                            <li><span class="dropdown-item-text text-muted">Nessuna categoria</span></li>
+                            <li><span class="dropdown-item-text text-muted">{{ __('ui.noCategories') }}</span></li>
                         @endforelse
                     </ul>
                 </li>
@@ -31,7 +31,7 @@
                     @if (Auth::user()->is_revisor)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('revisor.index') }}">
-                                Zona Revisore
+                                {{ __('ui.revisorArea') }}
                                 <span class="badge rounded-pill text-bg-warning">
                                     {{ \App\Models\Article::where('is_accepted', null)->count() }}
                                 </span>
@@ -41,16 +41,20 @@
                 @endauth
             </ul>
 
-            <div class="d-flex gap-2">
-                <a href="{{ route('articles.create') }}" class="btn btn-sm btn-primary">Nuovo annuncio</a>
+            <div class="d-flex gap-2 align-items-center">
+                <x-language-flag lang="it" icon="it" />
+                <x-language-flag lang="uk" icon="gb" />
+                <x-language-flag lang="es" icon="es" />
+
+                <a href="{{ route('articles.create') }}" class="btn btn-sm btn-primary">{{ __('ui.newArticle') }}</a>
                 @if (Route::has('login'))
                     @auth
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="btn btn-sm btn-outline-dark">Logout</button>
+                            <button type="submit" class="btn btn-sm btn-outline-dark">{{ __('ui.logout') }}</button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-sm btn-outline-secondary">Login</a>
+                        <a href="{{ route('login') }}" class="btn btn-sm btn-outline-secondary">{{ __('ui.login') }}</a>
                     @endauth
                 @endif
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Categoria {{ $category->name }} - {{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __('ui.category') }} {{ __('ui.' . $category->name) }} - {{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-light">
@@ -11,8 +11,8 @@
 
     <div class="container py-4 py-lg-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0">Categoria: {{ $category->name }}</h1>
-            <a href="{{ route('article.index') }}" class="btn btn-outline-secondary">Tutti gli annunci</a>
+            <h1 class="h3 mb-0">{{ __('ui.category') }}: {{ __('ui.' . $category->name) }}</h1>
+            <a href="{{ route('article.index') }}" class="btn btn-outline-secondary">{{ __('ui.allArticles') }}</a>
         </div>
 
         <div class="row g-4">
@@ -22,7 +22,7 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <div class="alert alert-info mb-0">Non sono presenti articoli per questa categoria.</div>
+                    <div class="alert alert-info mb-0">{{ __('ui.noArticlesInCategory') }}</div>
                 </div>
             @endforelse
         </div>

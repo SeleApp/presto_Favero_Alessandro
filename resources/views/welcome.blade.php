@@ -11,8 +11,8 @@
 
     <div class="container py-4 py-lg-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0">Ultimi annunci</h1>
-            <a href="{{ route('article.index') }}" class="btn btn-outline-secondary">Vedi tutti</a>
+            <h1 class="h3 mb-0">{{ __('ui.latestArticles') }}</h1>
+            <a href="{{ route('article.index') }}" class="btn btn-outline-secondary">{{ __('ui.seeAll') }}</a>
         </div>
 
         <div class="row g-4">
@@ -22,7 +22,7 @@
                 </div>
             @empty
                 <div class="col-12">
-                    <div class="alert alert-info mb-0">Nessun annuncio disponibile.</div>
+                    <div class="alert alert-info mb-0">{{ __('ui.noAvailableArticles') }}</div>
                 </div>
             @endforelse
         </div>
