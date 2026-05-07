@@ -23,7 +23,7 @@
                         @if ($article_to_check->images->isNotEmpty())
                             @foreach ($article_to_check->images as $image)
                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                    <img src="{{ Storage::url($image->path) }}" class="d-block w-100" alt="{{ $article_to_check->title }}">
+                                    <img src="{{ $image->getUrl(300, 300) }}" class="d-block w-100" alt="{{ $article_to_check->title }}">
                                 </div>
                             @endforeach
                         @else

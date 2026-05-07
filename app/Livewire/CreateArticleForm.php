@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Jobs\ResizeImage;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -56,9 +57,11 @@ class CreateArticleForm extends Component
 
         if (! empty($this->temporary_images)) {
             foreach ($this->temporary_images as $image) {
-                $article->images()->create([
+                $newImage = $article->images()->create([
                     'path' => $image->store('images', 'public'),
                 ]);
+
+                dispatch(new ResizeImage(300, 300, dirname($newImage->path), basename($newImage->path)));
             }
         }
 
