@@ -9,7 +9,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::with('category')->orderBy('created_at', 'desc')->paginate(10);
+        $articles = Article::where('is_accepted', true)->with('category')->orderBy('created_at', 'desc')->paginate(10);
 
         return view('article.index', compact('articles'));
     }
@@ -27,7 +27,7 @@ class ArticleController extends Controller
     public function byCategory(Category $category)
     {
         return view('article.byCategory', [
-            'articles' => $category->articles()->with('category')->orderBy('created_at', 'desc')->get(),
+            'articles' => $category->articles()->where('is_accepted', true)->with('category')->orderBy('created_at', 'desc')->get(),
             'category' => $category,
         ]);
     }

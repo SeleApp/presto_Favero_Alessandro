@@ -27,6 +27,18 @@
                         @endforelse
                     </ul>
                 </li>
+                @auth
+                    @if (Auth::user()->is_revisor)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('revisor.index') }}">
+                                Zona Revisore
+                                <span class="badge rounded-pill text-bg-warning">
+                                    {{ \App\Models\Article::where('is_accepted', null)->count() }}
+                                </span>
+                            </a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
 
             <div class="d-flex gap-2">
