@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Jobs\GoogleVisionLabelImage;
+use App\Jobs\GoogleVisionSafeSearch;
 use App\Jobs\ResizeImage;
 use App\Models\Article;
 use App\Models\Category;
@@ -62,6 +64,8 @@ class CreateArticleForm extends Component
                 ]);
 
                 dispatch(new ResizeImage(300, 300, dirname($newImage->path), basename($newImage->path)));
+                dispatch(new GoogleVisionSafeSearch($newImage->id));
+                dispatch(new GoogleVisionLabelImage($newImage->id));
             }
         }
 

@@ -11,6 +11,16 @@ class Image extends Model
     protected $fillable = [
         'path',
         'article_id',
+        'adult',
+        'spoof',
+        'medical',
+        'violence',
+        'racy',
+        'labels',
+    ];
+
+    protected $casts = [
+        'labels' => 'array',
     ];
 
     public function article(): BelongsTo
